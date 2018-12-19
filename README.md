@@ -9,5 +9,5 @@ The templates work best in up-to-date browsers that support text-to-speech, flex
 
 In browsers other than Chrome, like Firefox, Edge or Opera, the text-to-speech will probably depend on platform local tts services. On a Linux device this can be pretty awful sounding. Setting a Linux machine up to have a good sounding tts voice is also a challenge. Again, Google Chrome is likely the best and easiest choice for Linux users.
 
-Check out the sample pages at this website I use for development: [link to jamjolu.neocities.org](https://jamjolu.neocities.org/)
-The neocities site may not have everything up-to-date.
+Check out the sample pages at this website I use for show and tell: [link to jamjolu.neocities.org](https://jamjolu.neocities.org/)
+The neocities site may not have everything up-to-date, and not everything found here is on that site.
