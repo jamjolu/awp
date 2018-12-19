@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en"><head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<title id="pageTitle">easy grid build-9</title>
+		<link rel="stylesheet" href="../css/tts_min_basic.css" id="basicLook">
+		<link rel="stylesheet" href="../css/tts_min_grid.css" id="gridLook">
+		<!-- the following allows for on the fly style changes:
+			The stylezPath indicates the relative path to where style sheets are housed.
+			The stylez array has a list of available style sheets.
+			The stylezIndex should point to the default style in the array.
+			Use the Alt-L key combo to toggle through the available styles. Use  Alt-G to see a different grid size (for applicable pages.)
+			The style changing function is in tts_min_basicPage.js.
+		-->
+		<script type="text/javascript"> 
+			var stylezPath = '../css/';
+			var stylezIndex = 0;
+			var gridzIndex = 0;
+		</script>
+		
+<!-- 
+	
+	This is a simple web page with text-to-speech support that should work in most modern browsers.
+	Most of the page's elements are organized in rows and columns as denoted by f_row divs which wrap f_items divs.
+	f_item divs form columns which are automatically distributed courtesy of flex-box styling in css. 
+	To keep presentation easy to view 3 columns is probably a good maximum.
+	The actors class is a row of buttons and/or anchors which are styled like buttons. You can probably fit 8 or so buttons on a page.
+	The aside that is classed as notes can contain text that is read when the page opens, but is normally not visible.
+	
+	-->		
+	</head>
+	<body>
+	<button class="hidden" id="showOptions" tabindex="-1">Edit</button><br>
+	<div id="options" style="display: none;">
+		<div class="f_row">
+		<div class="f_item">
+			<button id="hideOptions">Close Editor</button><br><button id="showInfo">Show Editing Info</button><br><button id="prevAct">Previous Actor Select</button><br><button id="nextAct">Next Actor Select</button><br><button id="copyAct">Copy Selected Actor</button><br><button id="insertAct">Insert Copied Actor</button><br><br><button id="cutAct">Cut Selected Actor</button><br>
+		</div>
+		<div class="f_item" id="sampler">
+		<button class="actor xl" data-msg="Insert New Button" data-r_action="" id="newBtn" onclick="newButton();"><img alt="push button" class="actorImg" src="https://d18vdu4p71yql0.cloudfront.net/libraries/sclera/press%20button.png"><p class="actorLabel">Insert New Button</p></button><br>
+		
+		<a class="button actor xl" href="#" id="newLink" onclick="newLink();"><img alt="link" class="actorImg" src="https://cdn0.iconfinder.com/data/icons/glyphpack/52/link-rounded-512.png"><p class="actorLabel">Insert New Link</p></a>
+		
+		</div>
+		<div class="f_item">
+		<button id="dataSetter" onclick="setActorDat();">Apply Actor Changes</button><br>
+		  This actor is a : <span id="tagXName">Link Actor</span><br>
+		  Set the Message for BtnX:<br><input id="btnXMsg" value=""><br>
+		  Set the Label for BtnX:<br><input id="btnXLabel" value=""><br>
+		  Set the Image URL for BtnX:<br><input id="btnXImg" value=""><br>
+		  Set the Alt Text for Image of BtnX:<br><input id="btnXAlt" value=""><br>
+		  Set the Action for BtnX:<br><input id="btnXAct" value=""><br>
+		  Set the Link for BtnX:<br><input id="btnXLink" value=""><br><br>
+		</div>
+		<div class="f_item">
+		 <button id="pageDataSetter" onclick="setPageData();">Apply Page Changes</button><br>
+		  Set a title for this page (shown on browser tab):<br><input id="pgTitle" value=""><br>
+		  Set a banner for this page (spoken on page open):<br><input id="pgBanner" value=""><br>
+		  Set the picture for left side of page:<br><input id="pgBigPic" value=""><br>
+		  Set the Alt Text for the left side picture:<br><input id="pgBigPicAlt" value=""><br>
+		  Set a hidden note (spoken on page open):<br><input id="pgNote" value=""><br>
+		  Set a name for this page (appears small at page bottom):<br><input id="pgName" value=""><br>
+		 <br>
+		</div>
+		<div class="f_item">
+		Set the text for the right side of page:<br><textarea id="pgMainText" style="width: 238px; height: 284px; margin: 0px;">Your Text Here</textarea>
+		</div>
+	</div>
+	<div id="info"><button id="hideInfo">Hide Editing Info</button><br>
+	<p> Use the Next and Previous buttons to move the orange editing selector around the Actors.<br> You can also add, remove, or move Actor buttons or Actor links around using the Cut and Insert buttons.</p><p>Make changes to Actors by editing the text fields, and then use the Apply Actor Changes button to update the selected button.</p><p>Don't forget to edit the page title, banner (if you want one,) and page name (which I usually make the html filename.) Use the Apply Page Changes to update the page. <br>There is also an option to enter a "note" which is read out loud on page open. The text for the note, however, is not visible.</p> <p>After making changes, close the editing screen. Then use the browser's "Developer tools" to copy the "OuterHTML" of the "html.." tag and paste it into text editor. <br>Save the result from the text editor as an html document. Be sure to save the new html file correctly in the directory structure where all its related resources are stored.</p>
+	<p>Don't be tempted to click on Actors while you are editing. If you navigate away from the page any changes will be lost!</p>
+	<p>Press Alt-k to see the keyboard shortcut menu.</p>
+	<h4> I recommend using opensymbols.org for your picture resources. </h4>
+	</div>
+	</div>
+	<div id="thisPage" class="centered">
+		<div class="f_row">
+			<div class="centered readThis"><h1 id="pageBanner">The Page Editor -- Edit Button Picture</h1></div>
+		</div>
+		<div class="f_row">
+			<div class="f_item centered"><img id="bigPic" alt="the grid builder page editor" src="Clipboard13.jpg"></div>
+			<div class="f_item"><h4 id="mainText" class="centered readThis">Switch back to the Grid Builder tab. Click into the text box below where it says "Set the Image URL for BtnX". Press Ctrl-a to select the contents of the text box. Press Ctrl-v to paste the address of the "read book" symbol. Go ahead and edit the Message to say"to read a book". Set the label to "read a book". Set the Alt Text to "read book". Finally, click the "Apply Actor Changes" button to see the results. Always remember to apply any changes before moving the orange highlight to the next button!</h4></div>
+		</div>
+		
+		<div class="actuators">
+			<a class="button actor" href="easyGridHT08.html" style="" data-msg=""><img alt="previous" class="actorImg" src="../images/go-previous-view.png"><p class="actorLabel">Go Back</p></a>
+			<button class="actor" data-msg=" " data-r_action=".readThis" style=""><img alt="man speaking" class="actorImg" src="../images/speakIcon-800px.png"><p class="actorLabel">Read Page</p></button>
+			<a class="button actor" href="easyGridHT10.html" style="" data-msg=""><img alt="next" class="actorImg" src="../images/go-next-view.png"><p class="actorLabel">Next</p></a>
+		</div>
+		<div class="notes" id="pageNote"></div>
+		<div class="f_row">
+			<div class="centered" id="htmlName">easyGridHT09.html</div>
+		</div>
+	</div>
+		<script src="../js/tts_min_basic.js"></script>
+		<script src="../js/tts_min_basicPage.js"></script>
+		<script src="../js/editStory.js"></script>
+	
+
+</body></html>
