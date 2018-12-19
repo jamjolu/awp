@@ -1,0 +1,26 @@
+body {background-color: black;}
+ .yt_wrapper {background-color: MediumTurquoise;
+	              text-align:center;} 
+	#yt_placeholder {
+          /background-color: black; 
+          width: 100%;
+          text-align: center;
+         }
+	#showBtnOptions { background-color: palegreen;
+					  text-align: center;}
+
+	#options {
+				background-color: skyblue;
+				display: none;
+			}
+    
+	#buttonDontlike {display:none;}
+	#buttonGoBack {display:none;}
+	#buttonGoBackward {display:none;}
+	#buttonGoAhead {display:none;}
+	#buttonGoForward {display:none;}
+	#buttonNext {display:none;}
+	#buttonPrevious {display:none;}
+	
+  
+	

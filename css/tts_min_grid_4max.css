@@ -1,0 +1,32 @@
+.grid {
+			 display: grid;
+			  grid-gap: 10px;
+			  justify-items: stretch;
+			  justify-content: stretch;
+			} 
+
+/* Set explicit number of columns for grid */
+.grid2 {	 grid-template-columns: 1fr 1fr;}
+.grid3 {	 grid-template-columns: 1fr 1fr 1fr;}
+.grid4 {	 grid-template-columns: 1fr 1fr 1fr 1fr;}
+.grid5 {	 grid-template-columns: 1fr 1fr 1fr 1fr 1fr;}
+.grid6 {	 grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;}
+.actor.xl {width: 40vw;
+				text-align:center;	
+			}
+
+			
+/* Adjust grid based on view port width */
+
+@media (min-width: 480px)and (max-width: 600px){ 
+							.grid { grid-template-columns: 1fr 1fr 1fr;}
+							.actor.xl {width: 20vw;
+										text-align:center;	
+									}	
+						}
+@media (min-width: 600px){ 
+							.grid { grid-template-columns: 1fr 1fr 1fr 1fr;}
+							.actor.xl {width: 18vw;
+										text-align:center;	
+									}	
+						}
