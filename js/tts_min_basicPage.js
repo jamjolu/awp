@@ -125,6 +125,8 @@ function checkCommand(cmdStr, disThing) {
 			break;
 		case "_readBanner": tts.ReadVisElmts(document.getElementById("thisPage"),"#pageBanner");
 			break;
+		case "_readStoryText": tts.ReadVisElmts(document.getElementById("thisPage"),"#mainText");
+			break;
 		case "_readMiddle": tts.ReadVisElmts(document.getElementById("thisPage"),".f_row_qa");
 			break;
 		case "_readBottom": tts.ReadVisElmts(document.getElementById("navStrip"),".actorLabel");
