@@ -18,11 +18,13 @@ tts.ReadText = function(txt){
 		const rgx1 = /, /gi;
 		const rgx2 = /\? /gi;
 		const rgx3 = /\! /gi;
+		const rgx4 = /- /gi; //dash+space as a means to generate a pause during tts output.
 		var sents = [];
 		block = block.replace(rgx,".~"); // Add a delimiter to sentence and phrase punctuation.
 		block = block.replace(rgx1,",~");
 		block = block.replace(rgx2,"?~");
 		block = block.replace(rgx3,"!~");
+		block = block.replace(rgx4,"-~");
 		sents = block.split("~"); // Break the block of text into smaller chunks.
 		//alert(sents);
 		for (let ix=0; ix<sents.length; ix++) {
