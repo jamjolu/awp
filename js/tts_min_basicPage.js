@@ -2,7 +2,6 @@
 var stylez = ['tts_min_basic.css', 'tts_min_basic_blues.css', 'tts_min_basic_dark.css', 'tts_min_basic_sunset.css', 'tts_min_basic_forest.css'];
 var gridz = ['tts_min_grid.css','tts_min_grid_4max.css'];
 var whatChanged = "nothing";
-var theLastActor = null;
 
 window.addEventListener("load", function(event) {
 	var storedVoiceIx = localStorage.getItem("voiceIndex");
@@ -20,7 +19,7 @@ window.addEventListener("load", function(event) {
 		gridzIndex = storedGridIx;
 	};
 // if (tts.Synth.speaking) tts.Synth.cancel();
-	if (tts.On) {
+if (tts.On) {
 		
 		var thisEl = document.getElementById("thisPage");
 		// Read the innerText for the listed elements of identified parent element after waiting 1 second to allow transitions to conclude.
@@ -46,7 +45,7 @@ document.addEventListener('keydown', function(event) {
 	if (event.key == 'v' && (event.altKey || event.metaKey)) {
 		tts.docLangIx ++;
 		if (tts.docLangIx >= (tts.docLangVoices.length)) tts.docLangIx = 0;
-		tts.DvIndex = tts.docLangVoices[tts.docLangVoicesIx];
+		tts.DvIndex = tts.docLangVoices[tts.docLangIx];
 		tts.ReadText("does this sound different?");
 		whatChanged = 'voice';
 		// alert("the language index is " + tts.docLangIx);
@@ -167,8 +166,6 @@ document.onkeyup = function( event ) {
 		if (thisThing.className.indexOf("actor") > -1)	{
 			if (tts.Synth.speaking) tts.Synth.cancel();
 			tts.ReadText(thisThing.textContent);
-			getActorData(thisThing);
-			theLastActor = thisThing;
 		}
 	};
 };

@@ -60,6 +60,13 @@ function showElement(dis){
 			
 			function setDefaultLook(){
 				editActors.elmts[editActors.currIx].style.border = "";
+				let cssStr = document.getElementById("basicLook").href;
+				stylezIndex = 0;
+				let stylezLimit = (stylez.length - 1); 
+				// make sure to retain the proper css look based on the user's choice
+				while ((!(cssStr.includes(stylez[stylezIndex])))&& (stylezIndex < stylezLimit)) {
+					stylezIndex++;
+				 }
 				document.getElementById("basicLook").href = stylezPath + stylez[stylezIndex];
 			}
 			

@@ -75,7 +75,7 @@ tts.ToggleSpeech = function(){
 tts.docLang = document.getElementsByTagName('html')[0].getAttribute('lang'); // get the document's language attribute to set the default language
 tts.docLangVoices = [];
 tts.docLangVoices[0] = 0; //prime the appropriate voices index list for voices available in document's language
-tts.docLangVoiceIx = 0;
+tts.docLangIx = 0; // In index into the list of voices compatable with the html lang attribute.
 
 
 
