@@ -1,0 +1,113 @@
+<!doctype html>
+<html lan="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<title>Basic page simple Text to Speech</title>
+		<link rel="stylesheet" href="../css/tts_min_basic_blues.css" id = "basicLook">
+		<link rel="stylesheet" href="../css/tts_min_grid.css" id = "gridLook">
+		<!-- the following allows for on the fly style changes:
+			The stylezPath indicates the relative path to where style sheets are housed.
+			The stylez array has a list of available style sheets.
+			The stylezIndex should point to the default style in the array.
+			Use the Alt-L key combo to toggle through the available styles. Use  Alt-G to see a different grid size (for applicable pages.)
+			The style changing function is in tts_min_basicPage.js.
+		-->
+		<script type="text/javascript"> 
+			var stylezPath = '../css/';
+			var stylezIndex = 1;
+			var gridzIndex = 0;
+			var initialSetup = 'Default';
+		</script>	
+<!-- 
+	
+	This is a simple web page with text-to-speech support that should work in most modern browsers.
+	f_rows are flexbox elements, a grid uses the css grid spec for producing fluid grids. Only linear scanning is possible using tab/enter navigation.
+	The actors class is a row of buttons and/or anchors which are styled like buttons. You can probably fit 8 or so buttons on a page.
+	The aside is classed as notes can contain text that is read when the page opens, but is normally not visible.
+	
+	-->		
+	</head>
+	<body>
+	<button id="showOptions" tabindex="-1">Edit Buttons</button><br>
+	<div id="options"><button id="hideOptions">Hide Options</button><button id="showInfo">Show Info</button><br><button id="updateBtns">Update Page</button>
+	Choose Setup From: <select id="theSetupList">
+		    <option id = "suD" value="Default">Default</option>
+			<option id = "su01" value="C2_Setup01">Setup 1</option>
+			<option id = "su02" value="C2_Setup02">Setup 2</option>
+			<option id = "su03" value="C2_Setup03">Setup 3</option>
+			<option id = "su04" value="C2_Setup04">Setup 4</option>
+			<option id = "su05" value="C2_Setup05">Setup 5</option>
+			<option id = "su06" value="C2_Setup06">Setup 6</option>
+			<option id = "su07" value="C2_Setup07">Setup 7</option>
+			<option id = "su08" value="C2_Setup08">Setup 8</option>
+			<option id = "su09" value="C2_Setup09">Setup 9</option>
+			<option id = "su10" value="C2_Setup10">Setup 10</option>
+			<option id = "su11" value="C2_Setup11">Setup 11</option>
+			<option id = "su12" value="C2_Setup12">Setup 12</option>
+		 </select>Describe your setup: <input id = "setupInfo" value = ""><br><button id="getSetup">Get setup</button><button id="saveSetup">Save setup</button><button id="useAsInitialSetup">Use this setup on page open</button><br>
+		 
+	<div class="f_row">
+		<div class="f_item">
+		  Set the Message for Btn1: <input id="btn1Msg" value="Yes, certainly!"><br>
+		  Set the Label for Btn1:   <input id="btn1Label" value="Yes"><br>
+		  Set the Image for Btn1:   <input id="btn1Img" value="https://d18vdu4p71yql0.cloudfront.net/libraries/tawasol/Yes%20(M).png"><br><br>
+		</div>
+		<div class ="f_item">
+		  Set the Message for Btn2: <input id="btn2Msg" value="No, no way!"><br>
+		  Set the Label for Btn2:   <input id="btn2Label" value="No"><br>
+		  Set the Image for Btn2:   <input id="btn2Img" value="https://d18vdu4p71yql0.cloudfront.net/libraries/tawasol/No%20(M).png"><br><br>
+	   </div>
+	</div>
+	<div id ="info"><button id="hideInfo">Hide Info</button><button class = "tabber" id="aboutInfo">About This Page</button><button class = "tabber" id="editingInfo">Editing Buttons</button><button class = "tabber" id="savingInfo">Saving/Retrieving Setups</button><br>
+	<div class="tabz" id = "tab_about">
+		<p> This page uses local storage to remember up to 12 page setups. If you click on a setup from the drop down menu you should also see a description, if the setup has been defined and saved.</p>
+		<p> These setups will be available only on the computer on which they were created (and in the browser in which they were created.)</p>
+		<p> The setups will remain indefinitely, or until the local storage is cleared. Check your browser's help service to find out how to clear local storage.</p>
+	</div>
+	<div class="tabz" id = "tab_editing">
+		<p> You can change what each button says when it is clicked by editing the "Message."</p>
+		<p> You can change what each button says when it receives the focus by editing the "Label," which also changes the text beneath the picture.</p>
+		<p> You can change the picture associated with each button by pasting the picture address (URL) into the "Image."</p>
+		<p> Click the "Update Page" button to preview any changes.</p> 
+	</div>
+	<div class="tabz" id = "tab_saving">
+		<p> To save a setup for later  retrieval, select any setup (except Default) from the drop down menu, enter a description, and click "Save Setup".</p>
+		<p> <h5> Always provide a brief description by editing "Describe your setup." </h5></p>
+		<p> To retrieve a setup, click a setup from the drop down menu, then click the "Get Setup" button.</p>
+		<p> To change which setup you see when the page loads, choose a setup from the drop down menu and click "Use this setup on page open". Choose the  "Default" setup to restore the original Yes/No page for the opening choices.</p>
+	</div>
+	<p> Clearing Local Storage will delete all setups. Each browser (or platform) may have different means for clearing Local Storage.</p>
+	<br>
+	<h4> I recommend using opensymbols.org as a resource for all of your pictures. </h4>
+	</div>
+	</div>
+		<div id ="thisPage" class="centered">
+			<div class = "f_row">
+				<div class = "centered readThis"><h1></h1></div>
+			</div>
+			<div class = f_row>
+		
+			<div class="f_item">
+				  <button class = "actor qp"data-msg="Yes, certainly!" data-r_action="" id = "btn1_Btn"><img alt="yes" class = "actorImg" id = "btn1_Img" src = "https://d18vdu4p71yql0.cloudfront.net/libraries/tawasol/Yes%20(M).png"><p class="actorQPLabel" id = "btn1_Label">Yes</p></button>
+			</div>	  
+			<div class="f_item">	  
+				  <button class = "actor qp" data-msg="No, no way!" data-r_action="" id = "btn2_Btn"><img alt="no" class = "actorImg" id = "btn2_Img" src = "https://d18vdu4p71yql0.cloudfront.net/libraries/tawasol/No%20(M).png" ><p class="actorQPLabel" id = "btn2_Label">No</p></button>
+				  
+				 
+			</div>
+			
+			</div>
+	
+		
+			<div class = "f_row">
+				<div class = "centered"><p>2 choices</p></div>
+			</div>
+			
+			<div class="notes"></div>
+		</div>
+		<script src="../js/tts_min_basic.js"></script>
+		<script src="../js/tts_min_basicPage.js"></script>
+		<script src="../js/qp2_basicsWithSave.js"></script>
+	</body>
+</html>
