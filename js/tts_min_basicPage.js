@@ -2,6 +2,8 @@
 var stylez = ['tts_min_basic.css', 'tts_min_basic_blues.css', 'tts_min_basic_dark.css', 'tts_min_basic_sunset.css', 'tts_min_basic_forest.css'];
 var gridz = ['tts_min_grid.css','tts_min_grid_4max.css'];
 var whatChanged = "nothing";
+var preventDefault = function(e){e.preventDefault();};
+var doOnce = false;
 
 window.addEventListener("load", function(event) {
 	var storedVoiceIx = localStorage.getItem("voiceIndex");
@@ -43,12 +45,12 @@ document.addEventListener('keydown', function(event) {
 		whatChanged = 'grid';
 	}
 	if (event.key == 'v' && (event.altKey || event.metaKey)) {
-		tts.docLangIx ++;
-		if (tts.docLangIx >= (tts.docLangVoices.length)) tts.docLangIx = 0;
-		tts.DvIndex = tts.docLangVoices[tts.docLangIx];
+		tts.docLangVoiceIx ++;
+		if (tts.docLangVoiceIx >= (tts.docLangVoices.length)) tts.docLangVoiceIx = 0;
+		tts.DvIndex = tts.docLangVoices[tts.docLangVoiceIx];
 		tts.ReadText("does this sound different?");
 		whatChanged = 'voice';
-		// alert("the language index is " + tts.docLangIx);
+		//alert("the number of voices are: " + tts.docLangVoices.length + " the current voice index is: " + tts.docLangVoiceIx);
 	}
 	if (event.key == 'S' && (event.altKey || event.metaKey)){
 		localStorage.setItem("voiceIndex", tts.DvIndex ); 
@@ -84,10 +86,40 @@ document.addEventListener('keydown', function(event) {
 	if (event.key == 'e' && (event.altKey || event.metaKey)) {
 		editorInit();
 	}
+	
 });
+
+
+//document.getElementById('thisPage').addEventListener('tap',handleTouch);
+//document.getElementById('thisPage').addEventListener('dbltap',handleTouch);
+//document.getElementById('thisPage').addEventListener('longtap',handleTouch);
+//document.getElementById('thisPage').addEventListener('swipeup',handleTouch);
+//document.getElementById('thisPage').addEventListener('swipedown',handleTouch);
+document.getElementById('thisPage').addEventListener('swipeleft',handleTouch);
+document.getElementById('thisPage').addEventListener('swiperight',handleTouch);
+//document.getElementById('thisPage').addEventListener('touchmove',preventDefault);
+//document.getElementById('thisPage').addEventListener('touchstart',preventDefault);
+//document.getElementById('thisPage').addEventListener('touchend',preventDefault);
+
+function handleTouch (e){
+	//e.preventDefault();
+	//alert('touch event = ' + e.type + ' at coords: ' + e.x + ', ' + e.y);
+	if (e.type == 'swipeleft'){
+		editorInit();
+	}
+	if (e.type == 'tap'){
+		let disTing =document.elementFromPoint(e.x,e.y);
+		checkActions(disTing);
+		//alert(document.elementFromPoint(e.x,e.y).className);
+		//doOnce = true;
+	}
+	//distanceY.innerHTML = e.distance ? e.distance.y : 'not available';
+	return false;
+}
 
 					
 function checkActions(disThing){
+	
 	if (disThing.dataset.msg) {tts.ReadText(disThing.dataset.msg);
 	} else {tts.ReadText(disThing.textContent);
 		}

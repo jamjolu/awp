@@ -18,13 +18,11 @@ tts.ReadText = function(txt){
 		const rgx1 = /, /gi;
 		const rgx2 = /\? /gi;
 		const rgx3 = /\! /gi;
-		const rgx4 = /- /gi; //dash+space as a means to generate a pause during tts output.
 		var sents = [];
 		block = block.replace(rgx,".~"); // Add a delimiter to sentence and phrase punctuation.
 		block = block.replace(rgx1,",~");
 		block = block.replace(rgx2,"?~");
 		block = block.replace(rgx3,"!~");
-		block = block.replace(rgx4,"-~");
 		sents = block.split("~"); // Break the block of text into smaller chunks.
 		//alert(sents);
 		for (let ix=0; ix<sents.length; ix++) {
@@ -75,7 +73,7 @@ tts.ToggleSpeech = function(){
 tts.docLang = document.getElementsByTagName('html')[0].getAttribute('lang'); // get the document's language attribute to set the default language
 tts.docLangVoices = [];
 tts.docLangVoices[0] = 0; //prime the appropriate voices index list for voices available in document's language
-tts.docLangIx = 0; // In index into the list of voices compatable with the html lang attribute.
+tts.docLangVoiceIx = 0;
 
 
 
@@ -95,7 +93,7 @@ function populateVoiceList() {
 			 vix++;
 		}
   }
-  //tts.DvIndex = tts.docLangVoices[0];
+  tts.DvIndex = tts.docLangVoices[0];
 }
 
 populateVoiceList();
