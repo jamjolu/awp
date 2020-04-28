@@ -124,4 +124,15 @@ window.addEventListener("load", function(event) {
 	 document.getElementById("setupInfo").value = localStorage.getItem(setupName); 
  }
  
-  
+function getLocalData() {
+			document.getElementById('localStore').value = JSON.stringify(localStorage);
+		}
+		
+function setLocalData() {
+		var localDat = document.getElementById('localStore').value;
+		var data = JSON.parse(localDat);
+			Object.keys(data).forEach(function (k) {
+			localStorage.setItem(k, data[k]);
+			});
+		}
+   

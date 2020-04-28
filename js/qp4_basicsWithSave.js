@@ -18,7 +18,7 @@ b_showinfo.addEventListener('click', function (){showElement(document.getElement
 b_hideinfo.addEventListener('click', function (){ hideElement(document.getElementById('info'));});
 b_updateBtns.addEventListener('click', function() { updateBtns();});
 b_saveSetup.addEventListener('click', function() { saveSetup();});
-b_getSetup.addEventListener('click', function() { getSetup();});
+b_getSetup.addEventListener('click', function() { getSetup('0');});
 s_theSetupList.addEventListener('change', function() { showSetupInfo();});
 b_aboutinfo.addEventListener('click', function (){ hideElement(document.getElementById('tab_editing')); hideElement(document.getElementById('tab_saving')); showElement(document.getElementById('tab_about'));});
 b_editinginfo.addEventListener('click', function (){ hideElement(document.getElementById('tab_about')); hideElement(document.getElementById('tab_saving')); showElement(document.getElementById('tab_editing'));});
@@ -55,6 +55,15 @@ window.addEventListener("load", function(event) {
 	 document.getElementById("btn2_Img").src = document.getElementById("btn2Img").value;
 	 document.getElementById("btn3_Img").src = document.getElementById("btn3Img").value;
 	 document.getElementById("btn4_Img").src = document.getElementById("btn4Img").value;
+	 document.getElementById("btn1_Btn").setAttribute("data-r_action", document.getElementById("btn1Act").value);
+	 document.getElementById("btn2_Btn").setAttribute("data-r_action", document.getElementById("btn2Act").value);
+	 document.getElementById("btn3_Btn").setAttribute("data-r_action", document.getElementById("btn3Act").value);
+	 document.getElementById("btn4_Btn").setAttribute("data-r_action", document.getElementById("btn4Act").value);
+	 document.getElementById("btn1_Btn").setAttribute("data-src", document.getElementById("btn1Link").value);
+	 document.getElementById("btn2_Btn").setAttribute("data-src", document.getElementById("btn2Link").value);
+	 document.getElementById("btn3_Btn").setAttribute("data-src", document.getElementById("btn3Link").value);
+	 document.getElementById("btn4_Btn").setAttribute("data-src", document.getElementById("btn4Link").value);
+	 
  }
  
  function saveSetup(){
@@ -76,14 +85,36 @@ window.addEventListener("load", function(event) {
 		 localStorage.setItem(keyPrefix2 + "img", document.getElementById("btn2Img").value );
 		 localStorage.setItem(keyPrefix3 + "img", document.getElementById("btn3Img").value );
 		 localStorage.setItem(keyPrefix4 + "img", document.getElementById("btn4Img").value );
+		 localStorage.setItem(keyPrefix1 + "act", document.getElementById("btn1Act").value );
+		 localStorage.setItem(keyPrefix2 + "act", document.getElementById("btn2Act").value );
+		 localStorage.setItem(keyPrefix3 + "act", document.getElementById("btn3Act").value );
+		 localStorage.setItem(keyPrefix4 + "act", document.getElementById("btn4Act").value );
+		 localStorage.setItem(keyPrefix1 + "link", document.getElementById("btn1Link").value );
+		 localStorage.setItem(keyPrefix2 + "link", document.getElementById("btn2Link").value );
+		 localStorage.setItem(keyPrefix3 + "link", document.getElementById("btn3Link").value );
+		 localStorage.setItem(keyPrefix4 + "link", document.getElementById("btn4Link").value );
 		 localStorage.setItem(setupName, document.getElementById("setupInfo").value ); 
 	 } else {alert("The Default setup can not be saved.");};
 	 
 	 
  }
  
- function getSetup() {
-	 let setupName = document.getElementById("theSetupList").value;
+ function getSetup(su_index) {
+	 
+	 let setupName = "Default";
+	 if (su_index === '0') {
+		 setupName = document.getElementById("theSetupList").value;
+		 //alert(setupName);
+	 } else { //change setup from button click
+		 let test_str = "1_2_3_4_5_6_7_8_9"; // allows testing for setups numbered 1 - 9. Setup # above 9 don't require leading 0 in setupName
+		 if (test_str.includes(su_index)) {
+			 setupName = "C4_Setup" + "0" + su_index;
+		 } else {
+			 setupName = "C4_Setup" + su_index;
+		 }
+		 document.getElementById("theSetupList").value = setupName;
+		 //alert(setupName);
+	 }
 	 if (setupName != "Default") {	 
 		 let keyPrefix1 = setupName + ".btn1.";
 		 let keyPrefix2 = setupName + ".btn2.";
@@ -101,6 +132,14 @@ window.addEventListener("load", function(event) {
 		 document.getElementById("btn2Img").value = localStorage.getItem(keyPrefix2 + "img");
 		 document.getElementById("btn3Img").value = localStorage.getItem(keyPrefix3 + "img");
 		 document.getElementById("btn4Img").value = localStorage.getItem(keyPrefix4 + "img");
+		 document.getElementById("btn1Act").value = localStorage.getItem(keyPrefix1 + "act");
+		 document.getElementById("btn2Act").value = localStorage.getItem(keyPrefix2 + "act");
+		 document.getElementById("btn3Act").value = localStorage.getItem(keyPrefix3 + "act");
+		 document.getElementById("btn4Act").value = localStorage.getItem(keyPrefix4 + "act");
+		 document.getElementById("btn1Link").value = localStorage.getItem(keyPrefix1 + "link");
+		 document.getElementById("btn2Link").value = localStorage.getItem(keyPrefix2 + "link");
+		 document.getElementById("btn3Link").value = localStorage.getItem(keyPrefix3 + "link");
+		 document.getElementById("btn4Link").value = localStorage.getItem(keyPrefix4 + "link");
 		 document.getElementById("setupInfo").value = localStorage.getItem(setupName);
 		 updateBtns();
 	 } else {
@@ -114,7 +153,7 @@ window.addEventListener("load", function(event) {
 	 let initSetup = localStorage.getItem(setupPrefix + "initialSetup");
 	 if (initSetup){
 		 document.getElementById("theSetupList").value = initSetup;
-		 getSetup(); 
+		 getSetup('0'); 
 	 }
  }
  
@@ -135,5 +174,17 @@ window.addEventListener("load", function(event) {
 	 let setupName = document.getElementById("theSetupList").value;
 	 document.getElementById("setupInfo").value = localStorage.getItem(setupName); 
  }
+ 
+function getLocalData() {
+			document.getElementById('localStore').value = JSON.stringify(localStorage);
+		}
+		
+function setLocalData() {
+		var localDat = document.getElementById('localStore').value;
+		var data = JSON.parse(localDat);
+			Object.keys(data).forEach(function (k) {
+			localStorage.setItem(k, data[k]);
+			});
+		}
  
   

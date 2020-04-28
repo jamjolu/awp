@@ -4,6 +4,9 @@ var gridz = ['tts_min_grid.css','tts_min_grid_4max.css'];
 var whatChanged = "nothing";
 var preventDefault = function(e){e.preventDefault();};
 var doOnce = false;
+var audioPlayer = document.getElementById('audioPlayer');
+if (audioPlayer) audioPlayer.volume = 0.5;
+
 
 window.addEventListener("load", function(event) {
 	var storedVoiceIx = localStorage.getItem("voiceIndex");
@@ -33,10 +36,7 @@ if (tts.On) {
 					
 document.addEventListener('keydown', function(event) {
 	if (event.key == 'l' && (event.altKey || event.metaKey)) {
-		stylezIndex ++;
-		if (stylezIndex >= stylez.length) stylezIndex = 0;
-		document.getElementById("basicLook").href = stylezPath + stylez[stylezIndex];
-		whatChanged = 'look';
+		changeLook();		
 	}
 	if (event.key == 'g' && (event.altKey || event.metaKey)) {
 		gridzIndex ++;
@@ -45,12 +45,7 @@ document.addEventListener('keydown', function(event) {
 		whatChanged = 'grid';
 	}
 	if (event.key == 'v' && (event.altKey || event.metaKey)) {
-		tts.docLangVoiceIx ++;
-		if (tts.docLangVoiceIx >= (tts.docLangVoices.length)) tts.docLangVoiceIx = 0;
-		tts.DvIndex = tts.docLangVoices[tts.docLangVoiceIx];
-		tts.ReadText("does this sound different?");
-		whatChanged = 'voice';
-		//alert("the number of voices are: " + tts.docLangVoices.length + " the current voice index is: " + tts.docLangVoiceIx);
+		changeVoice();		
 	}
 	if (event.key == 'S' && (event.altKey || event.metaKey)){
 		localStorage.setItem("voiceIndex", tts.DvIndex ); 
@@ -59,19 +54,7 @@ document.addEventListener('keydown', function(event) {
 		tts.ReadText("Basic page look, grid size and voice were saved.");
 	}
 	if (event.key == 's' && (event.altKey || event.metaKey)){
-		switch (whatChanged) {
-			case "voice" : 
-					localStorage.setItem("voiceIndex", tts.DvIndex );
-					break;
-			case "look" :
-					localStorage.setItem("lookIndex", stylezIndex );
-					break;
-			case "grid" :
-					localStorage.setItem("gridIndex", gridzIndex ); 
-					break;
-		}
-		tts.ReadText("The page " + whatChanged + "was saved.");
-		whatChanged = 'nothing';
+		saveChange();	
 	}
 	if (event.key == 'd' && (event.altKey || event.metaKey)){
 		localStorage.removeItem("voiceIndex"); 
@@ -117,6 +100,39 @@ function handleTouch (e){
 	return false;
 }
 
+function saveChange() {
+	
+	switch (whatChanged) {
+			case "voice" : 
+					localStorage.setItem("voiceIndex", tts.DvIndex );
+					break;
+			case "look" :
+					localStorage.setItem("lookIndex", stylezIndex );
+					break;
+			case "grid" :
+					localStorage.setItem("gridIndex", gridzIndex ); 
+					break;
+		}
+		tts.ReadText("The page " + whatChanged + "was saved.");
+		whatChanged = 'nothing';
+}
+
+function changeVoice() {
+	tts.docLangVoiceIx ++;
+		if (tts.docLangVoiceIx >= (tts.docLangVoices.length)) tts.docLangVoiceIx = 0;
+		tts.DvIndex = tts.docLangVoices[tts.docLangVoiceIx];
+		tts.ReadText("does this sound different?");
+		whatChanged = 'voice';
+		//alert("the number of voices are: " + tts.docLangVoices.length + " the current voice index is: " + tts.docLangVoiceIx);
+}
+
+function changeLook() {
+	
+	stylezIndex ++;
+		if (stylezIndex >= stylez.length) stylezIndex = 0;
+		document.getElementById("basicLook").href = stylezPath + stylez[stylezIndex];
+		whatChanged = 'look';
+}
 					
 function checkActions(disThing){
 	
@@ -173,6 +189,19 @@ function checkCommand(cmdStr, disThing) {
 			break;
 		case "_readGrid": tts.ReadVisElmts(document.getElementById("commGrid"),".actorLabel");
 			break;
+		case "_playAudio": if (audioPlayer) audioPlayer.play();
+			break;
+		case "_pauseAudio": if (audioPlayer) audioPlayer.pause();
+			break;
+		case "_volumeUpAudio": if (audioPlayer.volume < 1) audioPlayer.volume = audioPlayer.volume + 0.1;
+			break;
+		case "_volumeDownAudio": if (audioPlayer.volume > 0) audioPlayer.volume = audioPlayer.volume - 0.1;;
+			break;
+		case "_muteAudio": if (audioPlayer) audioPlayer.muted = !(audioPlayer.muted);
+			break;
+		case "_setAudio": if (audioPlayer) audioPlayer.src = disThing.getAttribute('data-src');
+			break;
+		case "_changeSetup": getSetup(disThing.getAttribute('data-src'));
 	}
 	return;
 }
@@ -189,6 +218,9 @@ document.onclick = function( event ) {
 	if (thisThing.className == "f_row_qa") thisThing = thisThing.querySelector('.actor');
 	if (thisThing.parentElement.className == "f_row_qa") thisThing = thisThing.parentElement.querySelector('.actor');
 	if (thisThing.className.indexOf("actor") > -1)	checkActions(thisThing);
+	if (thisThing.id == "changeVoice") changeVoice();
+	if (thisThing.id == "changeLook") changeLook();
+	if (thisThing.id == "saveChange") saveChange();
 };
 			
 // check to see if the focus has moved to an actor via Tab key.
