@@ -29,8 +29,12 @@
 	-->		
 	</head>
 	<body>
+	<audio id="audioPlayer" controls="" class="hidden" src="https://archive.org/download/FibberMcGeeandMolly1940/400102_Fibber_Builds_A_Doghouse.mp3">
+   </audio>
 	<button id="showOptions" tabindex="-1">Edit Buttons</button><br>
-	<div id="options"><button id="hideOptions">Hide Options</button><button id="showInfo">Show Info</button><br><button id="updateBtns">Update Page</button> Choose Setup From: <select id="theSetupList">
+	<div id="options"><button id="hideOptions">Hide Options</button> <button id="showInfo">Show Info</button>
+	  <button id="changeLook">Change Page Look</button> <button id="changeVoice">Change Text-to-speech Voice</button> <button id="saveChange">Save Look/Voice Changes</button>
+	<br><button id="updateBtns">Update Page</button> Choose Setup From: <select id="theSetupList">
 		    <option id = "suD" value="Default">Default</option>
 			<option id = "su01" value="C4_Setup01">Setup 1</option>
 			<option id = "su02" value="C4_Setup02">Setup 2</option>
@@ -44,29 +48,69 @@
 			<option id = "su10" value="C4_Setup10">Setup 10</option>
 			<option id = "su11" value="C4_Setup11">Setup 11</option>
 			<option id = "su12" value="C4_Setup12">Setup 12</option>
-		 </select> Describe your setup: <input id = "setupInfo" value = ""><br><button id="getSetup">Get setup</button><button id="saveSetup">Save setup</button><button id="useAsInitialSetup">Use this setup on page open</button>
+		 </select> 
+		 Describe your setup: <input id = "setupInfo" value = "">
+		 <br><button id="getSetup">Get setup</button> <button id="saveSetup">Save setup</button> <button id="useAsInitialSetup">Use this setup on page open</button>
 	<div class="f_row">
 		<div class="f_item">
-		  Set the Message for Btn1: <input id="btn1Msg" value="Yes, certainly!"><br>
-		  Set the Label for Btn1:   <input id="btn1Label" value="Yes"><br>
-		  Set the Image for Btn1:   <input id="btn1Img" value="https://d18vdu4p71yql0.cloudfront.net/libraries/tawasol/Yes%20(M).png"><br><br>
-		  
-		 
+		  Set the Message for Btn1:<br><input id="btn1Msg" value="Yes, certainly!"><br>
+		  Set the Label for Btn1:<br><input id="btn1Label" value="Yes"><br>
+		  Set the Image for Btn1:<br><input id="btn1Img" value="https://d18vdu4p71yql0.cloudfront.net/libraries/tawasol/Yes%20(M).png"><br>
+		  Set the Action for Btn1:<br><select id="btn1Act" value=" ">
+			<option value=""></option>
+			<option value="_changeSetup">_changeSetup</option>
+			<option value="_setAudio,_playAudio">_setAudio,_playAudio</option>
+			<option value="_pauseAudio">_pauseAudio</option>
+			<option value="_muteAdio">_muteAudio</option>
+			<option value="volumeDownAudio">_volumeDownAudio</option>
+			<option value="_volumeUpAudio">_volumeUpAudio</option>
+		  </select><br>
+		  Set the Link for Btn1:<br><input id="btn1Link" value=" "><br><br>
 		</div>
 		<div class ="f_item">
-		  Set the Message for Btn2: <input id="btn2Msg" value="No, no way!"><br>
-		  Set the Label for Btn2:   <input id="btn2Label" value="No"><br>
-		  Set the Image for Btn2:   <input id="btn2Img" value="https://d18vdu4p71yql0.cloudfront.net/libraries/tawasol/No%20(M).png"><br><br>
+		  Set the Message for Btn2:<br><input id="btn2Msg" value="No, no way!"><br>
+		  Set the Label for Btn2:<br><input id="btn2Label" value="No"><br>
+		  Set the Image for Btn2:<br><input id="btn2Img" value="https://d18vdu4p71yql0.cloudfront.net/libraries/tawasol/No%20(M).png"><br>
+		  Set the Action for Btn2:<br><select id="btn2Act" value=" ">
+			<option value=""></option>
+			<option value="_changeSetup">_changeSetup</option>
+			<option value="_setAudio,_playAudio">_setAudio,_playAudio</option>
+			<option value="_pauseAudio">_pauseAudio</option>
+			<option value="_muteAdio">_muteAudio</option>
+			<option value="volumeDownAudio">_volumeDownAudio</option>
+			<option value="_volumeUpAudio">_volumeUpAudio</option>
+		  </select><br>
+		  Set the Link for Btn2:<br><input id="btn2Link" value=" "><br><br>
 	   </div>
 	   <div class ="f_item">
-		  Set the Message for Btn3: <input id="btn3Msg" value="I like that!"><br>
-		  Set the Label for Btn3:   <input id="btn3Label" value="Like"><br>
-		  Set the Image for Btn3:   <input id="btn3Img" value="https://d18vdu4p71yql0.cloudfront.net/libraries/mulberry/good.svg"><br><br>
+		  Set the Message for Btn3:<br><input id="btn3Msg" value="I like that!"><br>
+		  Set the Label for Btn3:<br><input id="btn3Label" value="Like"><br>
+		  Set the Image for Btn3:<br><input id="btn3Img" value="https://d18vdu4p71yql0.cloudfront.net/libraries/mulberry/good.svg"><br>
+		  Set the Action for Btn3:<br><select id="btn3Act" value=" ">
+			<option value=""></option>
+			<option value="_changeSetup">_changeSetup</option>
+			<option value="_setAudio,_playAudio">_setAudio,_playAudio</option>
+			<option value="_pauseAudio">_pauseAudio</option>
+			<option value="_muteAdio">_muteAudio</option>
+			<option value="volumeDownAudio">_volumeDownAudio</option>
+			<option value="_volumeUpAudio">_volumeUpAudio</option>
+		  </select><br>
+		  Set the Link for Btn3:<br><input id="btn3Link" value=" "><br><br>
 	   </div>
 	   <div class ="f_item">
-		  Set the Message for Btn4: <input id="btn4Msg" value="I don't like that!"><br>
-		  Set the Label for Btn4:   <input id="btn4Label" value="Don't Like"><br>
-		  Set the Image for Btn4:   <input id="btn4Img" value="https://d18vdu4p71yql0.cloudfront.net/libraries/mulberry/bad.svg"><br><br>
+		  Set the Message for Btn4:<br><input id="btn4Msg" value="I don't like that!"><br>
+		  Set the Label for Btn4:<br><input id="btn4Label" value="Don't Like"><br>
+		  Set the Image for Btn4:<br><input id="btn4Img" value="https://d18vdu4p71yql0.cloudfront.net/libraries/mulberry/bad.svg"><br>
+		  Set the Action for Btn4:<br><select id="btn4Act" value=" ">
+			<option value=""></option>
+			<option value="_changeSetup">_changeSetup</option>
+			<option value="_setAudio,_playAudio">_setAudio,_playAudio</option>
+			<option value="_pauseAudio">_pauseAudio</option>
+			<option value="_muteAdio">_muteAudio</option>
+			<option value="volumeDownAudio">_volumeDownAudio</option>
+			<option value="_volumeUpAudio">_volumeUpAudio</option>
+		  </select><br>
+		  Set the Link for Btn4:<br><input id="btn4Link" value=" "><br><br>
 	   </div>
 	</div>
 	<div id ="info"><button id="hideInfo">Hide Info</button><button class = "tabber" id="aboutInfo">About This Page</button><button class = "tabber" id="editingInfo">Editing Buttons</button><button class = "tabber" id="savingInfo">Saving/Retrieving Setups</button><br>
@@ -90,6 +134,9 @@
 	<p> Clearing Local Storage will delete all setups. Each browser (or platform) may have different means for clearing Local Storage.</p>
 	<br>
 	<h4> I recommend using opensymbols.org as a resource for all of your pictures. </h4>
+	<button id="getLocalStore" onclick="getLocalData()">Get local storage</button>
+	<input id="localStore" value="">
+	<button id="setLocalStore" onclick="setLocalData()">set local storage</button>
 	</div>
 	</div>
 		<div id ="thisPage" class="centered">
@@ -99,16 +146,16 @@
 			<div class = f_row>
 		
 				<div class="f_item">
-					  <button class = "actor qp"data-msg="Yes, certainly!" data-r_action="" id = "btn1_Btn"><img alt="yes" class = "actorImg" id = "btn1_Img" src = "https://d18vdu4p71yql0.cloudfront.net/libraries/tawasol/Yes%20(M).png"><p class="actorQPLabel" id = "btn1_Label">Yes</p></button>
+					  <button class = "actor qp"data-msg="Yes, certainly!" data-r_action="" data-src="" id = "btn1_Btn"><img alt="yes" class = "actorImg" id = "btn1_Img" src = "https://d18vdu4p71yql0.cloudfront.net/libraries/tawasol/Yes%20(M).png"><p class="actorQPLabel" id = "btn1_Label">Yes</p></button>
 				</div>	  
 				<div class="f_item">	  
-					  <button class = "actor qp" data-msg="No, no way!" data-r_action="" id = "btn2_Btn"><img alt="no" class = "actorImg" id = "btn2_Img" src = "https://d18vdu4p71yql0.cloudfront.net/libraries/tawasol/No%20(M).png" ><p class="actorQPLabel" id = "btn2_Label">No</p></button>	 
+					  <button class = "actor qp" data-msg="No, no way!" data-r_action="" data-src="" id = "btn2_Btn"><img alt="no" class = "actorImg" id = "btn2_Img" src = "https://d18vdu4p71yql0.cloudfront.net/libraries/tawasol/No%20(M).png" ><p class="actorQPLabel" id = "btn2_Label">No</p></button>	 
 				</div>
 				<div class="f_item">
-					  <button class = "actor qp"data-msg="I like that!" data-r_action="" id = "btn3_Btn"><img alt="like" class = "actorImg" id = "btn3_Img" src = "https://d18vdu4p71yql0.cloudfront.net/libraries/mulberry/good.svg"><p class="actorQPLabel" id = "btn3_Label">Like</p></button>
+					  <button class = "actor qp"data-msg="I like that!" data-r_action="" data-src="" id = "btn3_Btn"><img alt="like" class = "actorImg" id = "btn3_Img" src = "https://d18vdu4p71yql0.cloudfront.net/libraries/mulberry/good.svg"><p class="actorQPLabel" id = "btn3_Label">Like</p></button>
 				</div>	  
 				<div class="f_item">	  
-					  <button class = "actor qp" data-msg="I don't like that!" data-r_action="" id = "btn4_Btn"><img alt="no not like" class = "actorImg" id = "btn4_Img" src = "https://d18vdu4p71yql0.cloudfront.net/libraries/mulberry/bad.svg" ><p class="actorQPLabel" id = "btn4_Label">Don't Like</p></button> 
+					  <button class = "actor qp" data-msg="I don't like that!" data-r_action="" data-src="" id = "btn4_Btn"><img alt="no not like" class = "actorImg" id = "btn4_Img" src = "https://d18vdu4p71yql0.cloudfront.net/libraries/mulberry/bad.svg" ><p class="actorQPLabel" id = "btn4_Label">Don't Like</p></button> 
 				</div>
 			</div>
 	
@@ -122,5 +169,8 @@
 		<script src="../js/tts_min_basic.js"></script>
 		<script src="../js/tts_min_basicPage.js"></script>
 		<script src="../js/qp4_basicsWithSave.js"></script>
+		<script>
+		
+		</script>
 	</body>
 </html>

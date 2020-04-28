@@ -1,5 +1,5 @@
 <!doctype html>
-<html lan="en">
+<html lang ="en">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -30,7 +30,10 @@
 	</head>
 	<body>
 	<button id="showOptions" tabindex="-1">Edit Buttons</button><br>
-	<div id="options"><button id="hideOptions">Hide Options</button><button id="showInfo">Show Info</button><br><button id="updateBtns">Update Page</button>
+	
+	<div id="options"><button id="hideOptions">Hide Options</button><button id="showInfo">Show Info</button>
+	<button id="changeLook">Change Page Look</button> <button id="changeVoice">Change Text-to-speech Voice</button> <button id="saveChange">Save Look/Voice Changes</button>
+	<br><button id="updateBtns">Update Page</button>
 	Choose Setup From: <select id="theSetupList">
 		    <option id = "suD" value="Default">Default</option>
 			<option id = "su01" value="C2_Setup01">Setup 1</option>
@@ -80,6 +83,9 @@
 	<p> Clearing Local Storage will delete all setups. Each browser (or platform) may have different means for clearing Local Storage.</p>
 	<br>
 	<h4> I recommend using opensymbols.org as a resource for all of your pictures. </h4>
+	<button id="getLocalStore" onclick="getLocalData()">Get local storage</button>
+	<input id="localStore" value="">
+	<button id="setLocalStore" onclick="setLocalData()">set local storage</button>
 	</div>
 	</div>
 		<div id ="thisPage" class="centered">
