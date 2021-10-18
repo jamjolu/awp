@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang ="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<title>QP2 Plus - 2 Choices with Text-to-Speech</title>
+		<link rel="stylesheet" href="../css/tts_min_basic_blues.css" id = "basicLook">
+		<link rel="stylesheet" href="../css/tts_min_grid.css" id = "gridLook">
+		<link rel="stylesheet" href="../css/yt_grid.css" type="text/css">
+		<link rel="stylesheet" href="../css/awp_modal.css">
+		<!-- the following allows for on the fly style changes:
+			The stylezPath indicates the relative path to where style sheets are housed.
+			The stylez array has a list of available style sheets.
+			The stylezIndex should point to the default style in the array.
+			Use the Alt-L key combo to toggle through the available styles. Use  Alt-G to see a different grid size (for applicable pages.)
+			The style changing function is in tts_min_basicPage.js.
+		-->
+		<script type="text/javascript"> 
+			var stylezPath = '../css/';
+			var stylezIndex = 1;
+			var gridzIndex = 0;
+			var initialSetup = 'Default';
+		</script>	
+<!-- 
+	
+	This is a simple web page with text-to-speech support that should work in most modern browsers.
+	f_rows are flexbox elements, a grid uses the css grid spec for producing fluid grids. Only linear scanning is possible using tab/enter navigation.
+	The actors class is a row of buttons and/or anchors which are styled like buttons. You can probably fit 8 or so buttons on a page.
+	The aside is classed as notes can contain text that is read when the page opens, but is normally not visible.
+	
+	-->		
+	</head>
+	<body>
+	<div id="setupModal" class="modal">
+
+	  <!-- Modal content -->
+	  <div class="modal-content">
+		<h3 id="modalMsg">Do you really want to save this set of buttons as:</h3>
+		<button id="modal_saveSetup">Yes, go ahead and save it.</button>
+		<button id="modal_noSaveSetup">Cancel</button>
+	  </div>
+
+	</div>
+	<audio id="audioPlayer" controls="" class="hidden" src="https://archive.org/download/FibberMcGeeandMolly1940/400102_Fibber_Builds_A_Doghouse.mp3">
+   </audio>
+	<button id="showOptions" tabindex="-1">Edit Buttons</button><button id="modalSaveBtn" class="hidden">Open Modal</button><br>
+	
+	<div id="options"><button id="hideOptions">Hide Options</button>
+	<button id="hideYTPlayer">Hide YT</button> 
+		  <button id="showYTPlayer">Show YT</button> 
+		  <button id="hideBtns">Hide Btns</button> 
+		  <button id="showBtns">Show Btns</button> 
+		  <button id="showInfo">Show Info</button>
+	<button id="changeLook">Change Page Look</button> <button id="changeVoice">Change Text-to-speech Voice</button> <button id="saveChange">Save Look/Voice Changes</button>
+	<br><button id="updateBtns">Update Page</button>
+	Choose Setup From: <select id="theSetupList">
+		    <option id = "suD" value="Default">Default</option>
+			<option id = "su01" value="C2_Setup01">Setup 1</option>
+			<option id = "su02" value="C2_Setup02">Setup 2</option>
+			<option id = "su03" value="C2_Setup03">Setup 3</option>
+			<option id = "su04" value="C2_Setup04">Setup 4</option>
+			<option id = "su05" value="C2_Setup05">Setup 5</option>
+			<option id = "su06" value="C2_Setup06">Setup 6</option>
+			<option id = "su07" value="C2_Setup07">Setup 7</option>
+			<option id = "su08" value="C2_Setup08">Setup 8</option>
+			<option id = "su09" value="C2_Setup09">Setup 9</option>
+			<option id = "su10" value="C2_Setup10">Setup 10</option>
+			<option id = "su11" value="C2_Setup11">Setup 11</option>
+			<option id = "su12" value="C2_Setup12">Setup 12</option>
+		 </select>Describe your setup: <input id = "setupInfo" value = ""><br><button id="getSetup">Get setup</button><button id="saveSetup">Save setup</button><button id="useAsInitialSetup">Use this setup on page open</button><br>
+		 
+	<div class="f_row">
+		<div class="f_item">
+		  Set the Message for Btn1:<br><input id="btn1Msg" value="Yes, certainly!"><br>
+		  Set the Label for Btn1:<br><input id="btn1Label" value="Yes"><br>
+		  Set the Image for Btn1:<br><input id="btn1Img" value="https://d18vdu4p71yql0.cloudfront.net/libraries/tawasol/Yes%20(M).png"><br>
+		  Set the Action for Btn1:<br><select id="btn1Act" value=" ">
+			<option value=""></option>
+			<option value="_changeSetup">_changeSetup</option>
+			<option value="_changeSetup,_stopMedia">_changeSetup,_stopMedia</option>
+			<option value="_setAudio,_playAudio">_setAudio,_playAudio</option>
+			<option value="_pauseAudio">_pauseAudio</option>
+			<option value="_loadYTVideo">_loadYTVideo</option>
+			<option value="_loadYTVideo,_pauseMediaAfter15s">_loadYTVideo,_pauseMediaAfter15s</option>
+			<option value="_loadYTVideo,_pauseMediaAfter30s">_loadYTVideo,_pauseMediaAfter30s</option>
+			<option value="_loadYTVideo,_pauseMediaAfter60s">_loadYTVideo,_pauseMediaAfter60s</option>
+		  </select><br>
+		  Set the Link for Btn1:<br><input id="btn1Link" value=""><br><br>
+		</div>
+		<div class ="f_item">
+		  Set the Message for Btn2:<br><input id="btn2Msg" value="No, no way!"><br>
+		  Set the Label for Btn2:<br><input id="btn2Label" value="No"><br>
+		  Set the Image for Btn2:<br><input id="btn2Img" value="https://d18vdu4p71yql0.cloudfront.net/libraries/tawasol/No%20(M).png"><br>
+		  Set the Action for Btn2:<br><select id="btn2Act" value="">
+			<option value=""></option>
+			<option value="_changeSetup">_changeSetup</option>
+			<option value="_changeSetup,_stopMedia">_changeSetup,_stopMedia</option>
+			<option value="_setAudio,_playAudio">_setAudio,_playAudio</option>
+			<option value="_pauseAudio">_pauseAudio</option>
+			<option value="_loadYTVideo">_loadYTVideo</option>
+			<option value="_loadYTVideo,_pauseMediaAfter15s">_loadYTVideo,_pauseMediaAfter15s</option>
+			<option value="_loadYTVideo,_pauseMediaAfter30s">_loadYTVideo,_pauseMediaAfter30s</option>
+			<option value="_loadYTVideo,_pauseMediaAfter60s">_loadYTVideo,_pauseMediaAfter60s</option>
+		  </select><br>
+		  Set the Link for Btn2:<br><input id="btn2Link" value=""><br><br>
+	   </div>
+	</div>
+	Test a YouTube Video using the 11 Character ID:<br><input id="ytId" placeholder="Enter 11 char. YouTube Id"><button id="updateVideo">Get Video</button><br>
+		 <br>
+	<div id ="info"><button id="hideInfo">Hide Info</button><button class = "tabber" id="aboutInfo">About This Page</button><button class = "tabber" id="editingInfo">Editing Buttons</button><button class = "tabber" id="savingInfo">Saving/Retrieving Setups</button><br>
+	<div class="tabz" id = "tab_about">
+		<p> This page uses local storage to remember up to 12 page setups. If you click on a setup from the drop down menu you should also see a description, if the setup has been defined and saved.</p>
+		<p> These setups will be available only on the computer on which they were created (and in the browser in which they were created.)</p>
+		<p> The setups will remain indefinitely, or until the local storage is cleared. Check your browser's help service to find out how to clear local storage.</p>
+	</div>
+	<div class="tabz" id = "tab_editing">
+		<p> You can change what each button says when it is clicked by editing the "Message."</p>
+		<p> You can change what each button says when it receives the focus by editing the "Label," which also changes the text beneath the picture.</p>
+		<p> You can change the picture associated with each button by pasting the picture address (URL) into the "Image."</p>
+		<p> Click the "Update Page" button to preview any changes.</p> 
+	</div>
+	<div class="tabz" id = "tab_saving">
+		<p> To save a setup for later  retrieval, select any setup (except Default) from the drop down menu, enter a description, and click "Save Setup".</p>
+		<p> <h5> Always provide a brief description by editing "Describe your setup." </h5></p>
+		<p> To retrieve a setup, click a setup from the drop down menu, then click the "Get Setup" button.</p>
+		<p> To change which setup you see when the page loads, choose a setup from the drop down menu and click "Use this setup on page open". Choose the  "Default" setup to restore the original Yes/No page for the opening choices.</p>
+	</div>
+	<p> Clearing Local Storage will delete all setups. Each browser (or platform) may have different means for clearing Local Storage.</p>
+	<br>
+	<h4> I recommend using opensymbols.org as a resource for all of your pictures. </h4>
+	<button id="getLocalStore" onclick="getLocalData()">Get local storage</button>
+	<input id="localStore" value="">
+	<button id="setLocalStore" onclick="setLocalData()">set local storage</button>
+	</div>
+	</div>
+		<div id ="thisPage" class="centered">
+		  <div id="daBtns">
+			<div class = "f_row">
+				<div class = "centered readThis"><h1></h1></div>
+			</div>
+			<div class = f_row>
+		
+			<div class="f_item">
+				  <button class = "actor qp"data-msg="Yes, certainly!" data-r_action="" id = "btn1_Btn"><img alt="yes" class = "actorImg" id = "btn1_Img" src = "https://d18vdu4p71yql0.cloudfront.net/libraries/tawasol/Yes%20(M).png"><p class="actorQPLabel" id = "btn1_Label">Yes</p></button>
+			</div>	  
+			<div class="f_item">	  
+				  <button class = "actor qp" data-msg="No, no way!" data-r_action="" id = "btn2_Btn"><img alt="no" class = "actorImg" id = "btn2_Img" src = "https://d18vdu4p71yql0.cloudfront.net/libraries/tawasol/No%20(M).png" ><p class="actorQPLabel" id = "btn2_Label">No</p></button>
+				  
+				 
+			</div>
+			
+			</div>
+	
+		
+			<div class = "f_row">
+				<div class = "centered"><p>2 choices</p></div>
+			</div>
+			</div><br>
+			<div class="yt_strip" id="yt_strip" style="display:none;">
+<div class="yt_wrap" id="yt_wrapper">
+<!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+<div id="yt_placeholder" class="yt_vid"></div>
+</div>
+	<div class="yt_actuators">
+    <div id="actors" class="yt_actuators_v">
+	<!-- set the href destination "#"  in the next line to the desired page address to which you wish to return-->
+            <a href="#" class="button actor qp" id="returnLink" style="display: none;"><img alt="Return to previous" src="../images/go-prev-page.png" class="actorImg" id="prevBtn"><p class="actorLabel">Go Back</p></a>
+             <button type="button" id="buttonReload" class="button actor qp" style="display: none;"><img alt="Restart video" src="../images/reload.png" class="actorImg" id="reloadBtn"><p class="actorLabel">Restart</p></button>
+			 <button type="button" id="buttonStop" class="button actor qp"><img alt="stop" src="../images/stopRed.png" class="actorImg" id="stopBtn"><p class="actorLabel">Stop</p></button>
+            <button type="button" id="buttonPlay" class="button actor qp"><img alt="play" src="../images/playGreen.png" class="actorImg" id="playBtn"><p class="actorLabel">Play</p></button>
+            <button type="button" id="buttonPause" class="button actor qp"><img alt="pause" src="../images/pause.png" class="actorImg" id="pauseBtn"><p class="actorLabel">Pause</p></button>
+            <button type="button" id="buttonPrevious" class="button actor qp" style="display: none;"><img alt="previous video" src="../images/previous.png" class="actorImg" id="previousBtn"><p class="actorLabel">Previous</p></button>
+            <button type="button" id="buttonNext" class="button actor qp" style="display: none;"><img alt="next video" src="../images/next.png" class="actorImg" id="nextBtn"><p class="actorLabel">Next</p></button>         
+     </div></div>
+</div>
+
+			<div class="notes"></div>
+		</div>
+		<script src="../js/tts_min_basic.js"></script>
+		<script src="../js/tts_min_basicPage_plus.js"></script>
+		<script src="../js/QP2_with_edit_plus.js"></script>
+		<script src="https://www.youtube.com/iframe_api"></script> 
+		<script type="text/javascript">
+			var toobyListQuery = "";
+			var toobyListType = "";
+			function onYouTubeIframeAPIReady() {
+				document.getElementById("yt_placeholder").src = "";
+				var toobyID = "none"; <!--Element holds the 11 character YouTube identifier. Be sure to test the page. Not all YT videos are playable outside the YT domain. -->
+				var swfFactor = 1.00;
+				var swfW = 1100;
+				var swfH = 550;
+				ytPlayer = new YT.Player('yt_placeholder', {
+					width: swfW,
+					height: swfH,
+					videoId: toobyID,
+					playerVars: { autoplay:1, controls:0, list:toobyListQuery, listType:toobyListType, rel:0, modestbranding:1},
+					events: {
+						'onReady': onPlayerReady,
+						'onStateChange': onPlayerStateChange
+					}
+				});
+			}
+			
+			function onPlayerReady(event) {
+			event.target.playVideo();
+			}
+		  
+		  function onPlayerStateChange(event) {
+			if (event.data == YT.PlayerState.ENDED) {
+			ytStop(); 
+			}
+		  }
+		</script>
+		<script src="../js/awp_modal.js"></script>
+	</body>
+	
+</html>
