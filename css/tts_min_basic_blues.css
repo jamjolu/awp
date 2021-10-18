@@ -82,6 +82,12 @@ html {
                   background-color: transparent;
                   justify-content: center; 
 				  }
+		.actuators_l {
+				  display:flex;
+                  background-color: transparent;
+                  justify-content: left; 
+				  }
+				  
 		 .f_row {
 				  
 				  display:flex;

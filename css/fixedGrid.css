@@ -1,0 +1,41 @@
+			* { box-sizing: border-box; }
+
+			body {
+			  padding: 40px;
+			  
+			  font: 1.2em/1.0 Helvetica, sans-serif;
+			}
+
+			.actorlabel { font: 1.2em/1.4 Arial}
+
+			img {
+			  max-width: 100%;
+			}
+			
+			.actor {
+			  width: 14%;
+			  margin-top: 0.25em;
+			  margin-bottom: 0.25em;
+			  margin-right:0.5em;
+			  padding: 2px;
+			  font-weight: bold;
+			  border-radius: 10px;
+			  border-width:2px;
+			  /* border:5px solid rgb(255,255,255); */
+			  
+			  display: grid;
+			  grid-gap: 1px;
+			  grid-template-columns: 60% 1fr;
+			  align-items: center;
+			}
+			.rowWrap {
+				width: 100%;
+				display: flex;
+				background-color: none;
+				padding: 1px;
+				
+			}
+			.f_item {
+				padding: 20px;
+				line-height: 1.5em;
+			}
