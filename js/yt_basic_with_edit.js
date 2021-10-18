@@ -9,8 +9,11 @@ var b_hideoptions = document.getElementById('hideOptions');
 var b_updatesearch = document.getElementById('updateSearch');
 var b_updatevideo = document.getElementById("updateVideo");
 var b_makenewyt = document.getElementById("makeNewYt");
+var b_showYTPlayer = document.getElementById("showYTPlayer");
+var b_hideYTPlayer = document.getElementById("hideYTPlayer");
 var b_setpagedata = document.getElementById("pageDataSetter");
-b_play.addEventListener('click', function (){ ytPlayer.playVideo();});
+var yt_player = document.getElementById("yt_wrapper");
+b_play.addEventListener('click', function (){playVid();});
 b_pause.addEventListener('click', function (){ ytPlayer.pauseVideo();});
 b_reload.addEventListener('click', function (){ goReload();});
 b_previous.addEventListener('click', function (){ nextVid();});
@@ -21,7 +24,18 @@ b_updatesearch.addEventListener('click', function (){ loadVidList(document.getEl
 b_updatevideo.addEventListener('click', function (){ loadVideo(document.getElementById('ytId').value);});
 b_makenewyt.addEventListener('click', function () {newYTDiv();});
 b_setpagedata.addEventListener('click', function () {setPageData();});
+hideElement(yt_player);
+var firstTime = true;
 
+
+function playVid () {
+	if (firstTime){
+		showElement(yt_player);
+		loadVideo(document.getElementById('vidId').textContent);
+		firstTime = false;
+	}
+	ytPlayer.playVideo();
+}
 
 
 function nextVid() {
@@ -51,8 +65,17 @@ function prevVid() {
 	}
 
  function goReload() {
+	 loadVideo(document.getElementById('vidId').textContent)
      ytPlayer.seekTo(0, true);
     }
+	
+function showHide(dis) {
+	if (dis.style.display == 'block') {
+		dis.style.display = 'none';
+	} else {
+		dis.stle.display = 'block';
+	};
+}
     
   function showElement(dis){
        dis.style.display = 'block';
