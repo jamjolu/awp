@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+
+  <title id="pageTitle">Fixe36 Grid with message bar</title>
+  <meta name="description" content="Core 36 Basic Grid">
+  <meta name="author" content="jamjolu">
+  <link rel="stylesheet" href="../css/tts_min_basic_forest_fg.css" id="basicLook">
+  <link rel="stylesheet" href="../css/fixedGrid.css">
+  <script type="text/javascript"> 
+			var stylezPath = '../css/';
+			var stylezIndex = 1;
+			var gridzIndex = 0;
+			var initialSetup = 'Default';
+		</script>
+
+</head>
+
+<body>
+	<audio id="audioPlayer" controls="" class="hidden" style="display: none;" src="">
+   </audio>
+  
+	<div id="options" style="display: none;">
+	<div class="rowWrap">
+		<div class="f_item">
+			<button id="hideOptions">Close Editor</button><br>
+			<button id="changeLook">Change Page Look</button><br>
+			<button id="changeVoice">Change Text-to-speech Voice</button><br>
+			<button id="saveChange">Save Look/Voice Changes</button><br><br>
+			<button id="showInfo">Show Editing Info</button><br><br>
+			<button id="prevAct">Previous Actor Select</button><br>
+			<button id="nextAct">Next Actor Select</button><br>
+			<button id="jump7Act" onclick="jump7Actors();">Jump 7 Actors Select</button><br>
+			<button id="back7Act" onclick="back7Actors();">Back 7 Actors Select</button><br>
+		</div>
+		
+		<div class="f_item">
+		<button id="dataSetter" onclick="setActorDat();">Apply Actor Changes</button><br>
+		  This actor is a : <span id="tagXName">Button Actor</span><br>
+		  Set the Message for BtnX:<br><input id="btnXMsg" value=""><br>
+		  Set the Label for BtnX:<br><input id="btnXLabel" value=""><br>
+		  Set the Image URL for BtnX:<br><input id="btnXImg" value=""><br>
+		  Set the Alt Text for Image of BtnX:<br><input id="btnXAlt" value=""><br>
+		  Set the Action for BtnX:<br><input id="btnXAct" value=""><br>
+		  Set the Link for BtnX:<br><input id="btnXLink" value=""><br><br>
+		</div>
+		<div class="f_item">
+		 <button id="pageDataSetter" onclick="setPageData();">Apply Page Changes</button><br>
+		  Set a title for this page (shown on browser tab):<br><input id="pgTitle" value=""><br>
+		 <!-- Set a banner for this page (spoken on page open):<br><input id="pgBanner" value=""><br> -->
+		  <!-- Set a hidden note (spoken on page open):<br><input id="pgNote" value=""><br> -->
+		  Set a name for this page (appears small at page bottom):<br><input id="pgName" value=""><br>
+		 <br>
+		</div>
+	</div>
+		<div class="rowWrap" style="border-style:solid;">
+		<div class="f_item">
+		To change the label fonts choose from these menus:<br>
+		Choose a font size for button labels:<br><select id="btnLabelSz" value="100%">
+			<option value=""></option>
+			<option value="x-small">x-small</option>
+			<option value="small">small</option>
+			<option value="medium">medium</option>
+			<option value="large">large</option>
+			<option value="x-large">x-large</option>
+			<option value="xx-large">xx-large</option>
+		  </select>	
+		</div>
+		<div class="f_item">
+		<br>
+			Choose a font family for button labels:<br><select id="btnLabelFnt" value="100%">
+			<option value=""></option>
+			<option value="Arial">Arial</option>
+			<option value="Times New Roman">Times New Roman</option>
+			<option value="Georgia">Georgia</option>
+			<option value="Comic Sans MS">Comic Sans MS</option>
+			<option value="Tahoma">Tahoma</option>
+			<option value="Trebuchet MS">Trebuchet MS</option>
+		  </select>
+		</div>
+		<div class="f_item">
+		<button id="styleSetter" onclick="resetLabelStyles();">Reset Label Styles</button><br>
+		Choose uppercase or none for button labels:<br><select id="btnLabelCase" value="100%">
+			<option value=""></option>
+			<option value="uppercase">UPPERCASE</option>
+			<option value="none">None</option>
+		  </select>
+			
+		</div>
+		<br>
+		 <br>
+		 
+	</div>
+
+	<div id="info" style="display: none;"><button id="hideInfo">Hide Editing Info</button><br>
+	<p> Create your own custom grid! You can add new Actors, either buttons or links to this  grid. Use the Next and Previous buttons to move the orange editing selector around the Actors.<br> You can also remove, or move Actor buttons or Actor links around using the Cut and Insert buttons.</p><p>Make changes to Actors by editing the text fields, and then use the Apply Actor Changes button to update the selected button.</p><p>Don't forget to edit the page title, banner (if you want one,) and page name (which I usually make the html filename.) Use the Apply Page Changes to update the page. <br>There is also an option to enter a "note" which is read out loud on page open. The text for the note, however, is not visible.</p> <p>After making changes, close the editing screen. Then use the browser's "Developer tools" to copy the "OuterHTML" of the "html.." tag and paste it into text editor. <br>Save the result from the text editor as an html document. Be sure to save the new html file in the directory structure where all the tts_min resources are stored.</p>
+	<p>Don't be tempted to click on Actors while you are editing. If you navigate away from the page any changes will be lost!</p>
+	<p>Press Alt-k to see the keyboard shortcut menu.</p>
+	<h4> I recommend using opensymbols.org for your picture resources. </h4>
+	</div>
+	</div>
+	
+	<div class="gridWrapper" id="thisPage">
+	<div class="centered readThis"><h1 id="pageBanner"></h1></div>
+   <div class="rowWrap actorRow" id="row0" data-cue="">
+		 <button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		<button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		<button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		<button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		<button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		<button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		<button class="button actor qp" data-msg="" data-r_action="_readBanner" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src="https://d18vdu4p71yql0.cloudfront.net/libraries/tawasol/Read%20(M).png"><p class="actorQPLabel" id="btn1_Label" style="">Read Message</p></button>
+		
+   </div>
+    <div class="rowWrap actorRow" id="row1" data-cue="">
+		<button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		<button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		<button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		<button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		<button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		<button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		<button class="button actor qp" data-msg="" data-r_action="_clearBanner" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src="https://d18vdu4p71yql0.cloudfront.net/libraries/arasaac/erase%20all.png"><p class="actorQPLabel" id="btn1_Label" style="">Clear Message</p></button>
+		
+   </div>
+    <div class="rowWrap actorRow" id="row2" data-cue="">
+		 <button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		<button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		<button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		<button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		<button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		<button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		<button class="button actor qp" data-msg="" data-r_action="_removeWordFromBanner" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src="https://d18vdu4p71yql0.cloudfront.net/libraries/arasaac/erase%20last.png"><p class="actorQPLabel" id="btn1_Label" style="">Erase Word</p></button>
+		
+   </div>
+    <div class="rowWrap actorRow" id="row3" data-cue="">
+		<button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		<button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		<button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		<button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		<button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		<button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		<button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		
+   </div>
+    <div class="rowWrap actorRow" id="row4" data-cue="">
+		<button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		<button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		<button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		<button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		<button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		<button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		<button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		
+   </div>
+
+   <div class="rowWrap actorRow" id="row5" data-cue="">
+		<button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		<button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		<button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		<button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		<button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		<button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		<button class="button actor qp" data-msg="" data-r_action="" data-src="" id="btn1_Btn" style=""><img alt="" class="actorImg" id="btn1_Img" src=""><p class="actorQPLabel" id="btn1_Label" style=""></p></button>
+		
+   </div>
+
+ 
+</div>
+ <div class="centered"><span id="htmlName">fixed36RCScan_MB.html</span>  <button class="" id="showOptions" tabindex="-1">e</button></div><br>
+	<script src="../js/tts_min_basic.js"></script>
+	<script src="../js/tts_min_basicPage_fg.js"></script>
+	<script src="../js/editGrid_fg.js"></script>
+	<script src="../js/styleTweeksQP4.js"></script>
+	<script src="../js/fg_RowColScan.js"></script>
+	
+
+
+</body></html>
