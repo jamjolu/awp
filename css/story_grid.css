@@ -1,0 +1,43 @@
+.story_page {
+	display: grid;
+	grid-template-columns: 13fr 1fr;
+	grid-template-rows: 1fr 4fr 1fr;
+	}
+	
+#bigPic {
+	max-height: 65vh;
+	max-width: 80vw;
+}
+.story_head {
+	grid-column: 1;
+	grid-row: 1;
+	}
+	
+.story_pic {
+	grid-column: 1;
+	grid-row: 2;
+}
+	
+.story_text {
+	grid-column: 1;
+	grid-row: 3;
+	}
+	
+.story_actuators {
+	grid-column: 2;
+	grid-row: 1 / 3;
+	}
+	
+ .story_actuators_v {
+	 display: flex;
+	 flex-direction: column;
+	 align-items: start;
+ }
+ 
+ .story_edit {
+	 display: grid;
+	 grid-template-columns: 3fr 1fr 4fr 4fr 4fr;
+	 grid-column-gap: 5px;
+ }
+ 
+ 
