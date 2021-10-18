@@ -1,7 +1,9 @@
 # awp
 Accessible Web Pages with Text-to-Speech
 
-This project consists of a set of web pages along with associated css, and js resources that offer simple low clutter layouts, easy tab/enter navigation, and text-to-speech output. In addition, the pages have a crude editor built in offering users with limited technical skills means to construct customized pages. Together the page set was intended to offer simple alternative communication means, or a way for producing and presenting accessible curricula. I envisioned the set as a quick way to provide students at our school with easy-access materials that were very local, timely, compelling for them, and not covered by more full featured subscription services like Unique Learning and News2You. 
+This project consists of a set of web pages along with associated css, and js resources that offer simple low clutter layouts, easy tab/enter navigation, and text-to-speech output. In addition, the pages have a built-in editor offering users with limited technical skills means to construct customized pages. Together the page set was intended to offer simple alternative communication means, or a way for producing and presenting accessible curricula. I envisioned the set as a quick way to provide students at our school with easy-access materials that were very local, timely, compelling for them, and not covered by more full featured subscription services like Unique Learning and News2You. 
+
+The editor now allows editors to change fonts/sizes/case for button labels. Changes to fonts are saved in local storage and changes are applied across all AWP pages in a given domain.
 
 The web page tempates in the collection can be used to construct a static website. All that is needed is a web browser, an editor like Geany, and a place to host the pages like Neocities, or even your hard drive. The simplest method for saving a page like the gridBuilder is to use "Save as webpage complete" which would store the page and resources on your computer. The gridBuilder pages can be printed and used as an offline picture based communication strategy. 
 
